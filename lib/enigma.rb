@@ -141,8 +141,17 @@ class Enigma
     total_change_4 = rotation_4 + offset_4
 
     message_array = message.split("")
-
+    message_array.each do |char|
+      char_key = @character_map.key(char)
+      if char.index == 0 || char.index == 4 || char.index == 8 || char.index == 12 || char.index == 16 || char.index == 20
+        char_change = char-key + total_change_1
+      elsif
+    end
   end
-
-
 end
+
+# arr = []
+# message_array.each do |char|
+#   @character_map.each do |key,val|
+#     if char == val
+#       key + total_change_1
