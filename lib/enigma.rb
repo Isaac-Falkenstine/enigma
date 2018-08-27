@@ -20,7 +20,7 @@ class Enigma
   def encrypt(message,key,date)
   end
 
-  def rotation
+  def rotation(key = rand(10000..99999))
     rotation_1 = key.to_s.slice(0,2).to_i
     rotation_2 = key.to_s.slice(1,2).to_i
     rotation_3 = key.to_s.slice(2,2).to_i
@@ -54,6 +54,6 @@ end
 
 
 enigma = Enigma.new("Hello World")
-puts enigma.rotation
+puts enigma.rotation(41521)
 puts enigma.get_offset
 puts enigma.total_rotation

@@ -23,8 +23,15 @@ class EnigmaTest < MiniTest::Test
     assert_equal [9,1,2,4], enigma.get_offset
   end
 
-  def test_rotation
+  def test_rotation_if_given_key_value
     enigma = Enigma.new("Hello World")
     assert_equal [41,15,52,21], enigma.rotation(41521)
+  end
+
+  def test_total_ration
+    enigma = Enigma.new("Hello World")
+    enigma.rotation(41521)
+    enigma.get_offset
+    assert_equal [50,16,54,25], enigma.total_rotation
   end
 end
