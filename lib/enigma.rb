@@ -19,8 +19,11 @@ class Enigma
 
   def encrypt(message,key = rand(10000..99999),date = Date.today)
     encryped_message = []
-    
-
+    adds_rotation_to_index.each do |rotation|
+      new_index = @character_map.rotate(rotation)
+      encryped_message << new_index.first
+    end
+    encryped_message.join
   end
 
   def rotation(key = rand(10000..99999))
@@ -74,7 +77,6 @@ class Enigma
     rotated_indexes_array
   end
 end
-binding.pry
 
 
 enigma = Enigma.new("Hello World")

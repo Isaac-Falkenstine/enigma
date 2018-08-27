@@ -48,4 +48,14 @@ class EnigmaTest < MiniTest::Test
     enigma.gets_indexes_of_message
     assert_equal [57, 20, 65, 36, 64, 52, 76, 39, 67, 27, 57], enigma.adds_rotation_to_index
   end
+
+  def test_it_encrypts
+    enigma = Enigma.new("Hello World")
+    enigma.rotation(41521)
+    enigma.get_offset
+    enigma.total_rotation
+    enigma.gets_indexes_of_message
+    enigma.adds_rotation_to_index
+    assert_equal "su0 zn.a21s", enigma.encrypt("hello world", 41521, 270818)
+  end
 end
