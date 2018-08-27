@@ -1,157 +1,88 @@
 require 'date'
+require 'pry'
 
 class Enigma
   attr_reader :message,
               :key,
-              :date
-  def initialize(message, key = rand(99999), date = Date.today)
+              :date,
+              :rotation_array,
+              :offset_array
+  def initialize(message, key = rand(10000..99999), date = Date.today)
     @message = message
     @key = key
     @date = date
-    @character_map = {1 => "a",
-                      2 => "b",
-                      3 => "c",
-                      4 => "d",
-                      5 => "e",
-                      6 => "f",
-                      7 => "g",
-                      8 => "h",
-                      9 => "i",
-                      10 => "j",
-                      11 => "k",
-                      12 => "l",
-                      13 => "m",
-                      14 => "n",
-                      15 => "o",
-                      16 => "p",
-                      17 => "q",
-                      18 => "r",
-                      19 => "s",
-                      20 => "t",
-                      21 => "u",
-                      22 => "v",
-                      23 => "w",
-                      24 => "x",
-                      25 => "y",
-                      26 => "z",
-                      27 => "0",
-                      28 => "1",
-                      29 => "2",
-                      30 => "3",
-                      31 => "4",
-                      32 => "5",
-                      33 => "6",
-                      34 => "7",
-                      35 => "8",
-                      36 => "9",
-                      37 => " ",
-                      38 => ".",
-                      39 => ",",
-                      40 => "a",
-                      41 => "b",
-                      42 => "c",
-                      43 => "d",
-                      44 => "e",
-                      45 => "f",
-                      46 => "g",
-                      47 => "h",
-                      48 => "i",
-                      49 => "j",
-                      50 => "k",
-                      51 => "l",
-                      52 => "m",
-                      53 => "n",
-                      54 => "o",
-                      55 => "p",
-                      56 => "q",
-                      57 => "r",
-                      58 => "s",
-                      59 => "t",
-                      60 => "u",
-                      61 => "v",
-                      62 => "w",
-                      63 => "x",
-                      64 => "y",
-                      65 => "z",
-                      66 => "0",
-                      67 => "1",
-                      68 => "2",
-                      69 => "3",
-                      70 => "4",
-                      71 => "5",
-                      72 => "6",
-                      73 => "7",
-                      74 => "8",
-                      75 => "9",
-                      76 => " ",
-                      77 => ".",
-                      78 => ",",
-                      79 => "a",
-                      80 => "b",
-                      81 => "c",
-                      82 => "d",
-                      83 => "e",
-                      84 => "f",
-                      85 => "g",
-                      86 => "h",
-                      87 => "i",
-                      88 => "j",
-                      89 => "k",
-                      90 => "l",
-                      91 => "m",
-                      92 => "n",
-                      93 => "o",
-                      94 => "p",
-                      95 => "q",
-                      96 => "r",
-                      97 => "s",
-                      98 => "t",
-                      99 => "u",
-                      100 => "v",
-                      101 => "w",
-                      102 => "x",
-                      103 => "y",
-                      104 => "z",
-                      105 => "0",
-                      106 => "1",
-                      107 => "2",
-                      108 => "3",
-                      109 => "4",
-                      }
+    @character_map = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9',' ','.',',']
+    @rotation_array = rotation_array
+    @offset_array = offset_array
   end
 
-  def encrypt(message,key,date)
-    rotation_1 = key.slice(0,2).join('').to_i
-    rotation_2 = key.slice(1,2).join('').to_i
-    rotation_3 = key.slice(2,2).join('').to_i
-    rotation_4 = key.slice(3,2).join('').to_i
 
+  def encrypt(message,key = rand(10000..99999),date = Date.today)
+    encryped_message = []
+    adds_rotation_to_index.each do |rotation|
+      new_index = @character_map.rotate(rotation)
+      encryped_message << new_index.first
+    end
+    encryped_message.join
+  end
+
+  def rotation(key = rand(10000..99999))
+    rotation_1 = key.to_s.slice(0,2).to_i
+    rotation_2 = key.to_s.slice(1,2).to_i
+    rotation_3 = key.to_s.slice(2,2).to_i
+    rotation_4 = key.to_s.slice(3,2).to_i
+    @rotation_array = [rotation_1,rotation_2,rotation_3,rotation_4]
+  end
+
+  def formatted_date
+    date = Time.now.strftime("%d%m%y").to_i
+  end
+
+  def get_offset
     date = Time.now.strftime("%d%m%y").to_i ** 2
     date_string = date.to_s
     date_last_4 = date_string.slice(-4,date_string.length)
-
     offset_1 = date_last_4.chars[0].to_i
     offset_2 = date_last_4.chars[1].to_i
     offset_3 = date_last_4.chars[2].to_i
     offset_4 = date_last_4.chars[3].to_i
+    @offset_array = [offset_1,offset_2,offset_3,offset_4]
+  end
 
-    total_change_1 = rotation_1 + offset_1
-    total_change_2 = rotation_2 + offset_2
-    total_change_3 = rotation_3 + offset_3
-    total_change_4 = rotation_4 + offset_4
+  def total_rotation
+    total_change_1 = @rotation_array[0] + @offset_array[0]
+    total_change_2 = @rotation_array[1] + @offset_array[1]
+    total_change_3 = @rotation_array[2] + @offset_array[2]
+    total_change_4 = @rotation_array[3] + @offset_array[3]
+    total_change_array = [total_change_1, total_change_2, total_change_3, total_change_4]
+  end
 
-    message_array = message.split("")
-    message_array.each do |char|
-      char_key = @character_map.key(char)
-      if char.index == 0 || char.index == 4 || char.index == 8 || char.index == 12 || char.index == 16 || char.index == 20
-        char_change = char-key + total_change_1
-      elsif
+  def gets_indexes_of_message
+    indexed_message = []
+    message_array = @message.downcase.split('')
+    message_array.each do |i|
+      @character_map.each do |x|
+        if i == x
+          indexed_message << @character_map.index(x)
+        end
+      end
     end
+    indexed_message
+  end
+
+  def adds_rotation_to_index
+    rotated_indexes_array = gets_indexes_of_message.map.with_index do |n, i|
+      n + total_rotation[i % total_rotation.length]
+    end
+    rotated_indexes_array
   end
 end
 
-# arr = []
-# message_array.each do |char|
-#   @character_map.each do |key,val|
-#     if char == val
-#       key + total_change_1
+
+enigma = Enigma.new("Hello World")
+puts enigma.rotation(41521)
+puts enigma.get_offset
+p enigma.total_rotation
+p enigma.gets_indexes_of_message
+p enigma.adds_rotation_to_index
+p enigma.encrypt("hello world")
