@@ -34,4 +34,9 @@ class EnigmaTest < MiniTest::Test
     enigma.get_offset
     assert_equal [50,16,54,25], enigma.total_rotation
   end
+
+  def test_gets_indexes_of_message
+    enigma = Enigma.new("Hello World")
+    assert_equal [7,4,11,11,14,36,22,14,17,11,3], enigma.gets_index_of_message
+  end
 end

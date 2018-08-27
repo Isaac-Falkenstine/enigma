@@ -50,10 +50,31 @@ class Enigma
     total_change_4 = @rotation_array[3] + @offset_array[3]
     total_change_array = [total_change_1, total_change_2, total_change_3, total_change_4]
   end
+
+  def gets_indexes_of_message
+    indexed_message = []
+    message_array = @message.downcase.split('')
+    message_array.each do |i|
+      @character_map.each do |x|
+        if i == x
+          indexed_message << @character_map.index(x)
+        end
+      end
+    end
+    indexed_message
+  end
 end
+
 
 
 enigma = Enigma.new("Hello World")
 puts enigma.rotation(41521)
 puts enigma.get_offset
 puts enigma.total_rotation
+
+
+
+stupid_array = [1,2,3,4]
+holder = indexed_message.map.with_index do |n, i|
+  n + stupid_array[i % stupid_array.length]
+end
