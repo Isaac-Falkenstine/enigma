@@ -17,7 +17,10 @@ class Enigma
   end
 
 
-  def encrypt(message,key,date)
+  def encrypt(message,key = rand(10000..99999),date = Date.today)
+    encryped_message = []
+    
+
   end
 
   def rotation(key = rand(10000..99999))
@@ -63,18 +66,21 @@ class Enigma
     end
     indexed_message
   end
-end
 
+  def adds_rotation_to_index
+    rotated_indexes_array = gets_indexes_of_message.map.with_index do |n, i|
+      n + total_rotation[i % total_rotation.length]
+    end
+    rotated_indexes_array
+  end
+end
+binding.pry
 
 
 enigma = Enigma.new("Hello World")
 puts enigma.rotation(41521)
 puts enigma.get_offset
-puts enigma.total_rotation
-
-
-
-stupid_array = [1,2,3,4]
-holder = indexed_message.map.with_index do |n, i|
-  n + stupid_array[i % stupid_array.length]
-end
+p enigma.total_rotation
+p enigma.gets_indexes_of_message
+p enigma.adds_rotation_to_index
+p enigma.encrypt("hello world")
