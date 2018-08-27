@@ -18,8 +18,13 @@ class EnigmaTest < MiniTest::Test
     assert_equal 270818, enigma.formatted_date
   end
 
-  def test_get_offset_numbers
+  def test_get_individual_offset_numbers
     enigma = Enigma.new("Hello World")
-    assert_equal 9124, enigma.get_offset
+    assert_equal [9,1,2,4], enigma.get_offset
+  end
+
+  def test_rotation
+    enigma = Enigma.new("Hello World")
+    assert_equal [41,15,52,21], enigma.rotation(41521)
   end
 end
