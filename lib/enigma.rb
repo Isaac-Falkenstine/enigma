@@ -2,31 +2,43 @@ require 'date'
 require 'pry'
 
 class Enigma
-  attr_reader :message,
-              :key,
-              :date,
-              :rotation_array,
-              :offset_array
-  def initialize(message, key = rand(10000..99999), date = Date.today)
-    @message = message
-    @key = key
-    @date = date
+  def initialize
     @character_map = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9',' ','.',',']
-    @rotation_array = rotation_array
-    @offset_array = offset_array
+    @rotation_array = nil
+    @offset_array = nil
   end
 
 
-  def encrypt(message,key = rand(10000..99999),date = Date.today)
+  def encrypt(message, key = rand(10000..99999),date = Date.today)
+    rotation(key)
+    get_offset
     encryped_message = []
-    adds_rotation_to_index.each do |rotation|
+    adds_rotation_to_index(message).each do |rotation|
       new_index = @character_map.rotate(rotation)
       encryped_message << new_index.first
     end
     encryped_message.join
   end
 
-  def rotation(key = rand(10000..99999))
+  def decrypt(message, key, date = Date.today)
+    rotation(key)
+    get_offset
+    decrypted_message = []
+    subtract_total_rotation_from_index(message).each do |rotation|
+      new_index = @character_map.rotate(rotation)
+      decrypted_message << new_index.first
+    end
+    decrypted_message.join
+  end
+
+  def subtract_total_rotation_from_index(message)
+    rotated_indexes_array = gets_indexes_of_message(message).map.with_index do |n, i|
+      n - total_rotation[i % total_rotation.length]
+    end
+    rotated_indexes_array
+  end
+
+  def rotation(key)
     rotation_1 = key.to_s.slice(0,2).to_i
     rotation_2 = key.to_s.slice(1,2).to_i
     rotation_3 = key.to_s.slice(2,2).to_i
@@ -57,9 +69,9 @@ class Enigma
     total_change_array = [total_change_1, total_change_2, total_change_3, total_change_4]
   end
 
-  def gets_indexes_of_message
+  def gets_indexes_of_message(message)
     indexed_message = []
-    message_array = @message.downcase.split('')
+    message_array = message.downcase.split('')
     message_array.each do |i|
       @character_map.each do |x|
         if i == x
@@ -70,19 +82,12 @@ class Enigma
     indexed_message
   end
 
-  def adds_rotation_to_index
-    rotated_indexes_array = gets_indexes_of_message.map.with_index do |n, i|
+  def adds_rotation_to_index(message)
+    rotated_indexes_array = gets_indexes_of_message(message).map.with_index do |n, i|
       n + total_rotation[i % total_rotation.length]
     end
     rotated_indexes_array
   end
 end
-
-
-enigma = Enigma.new("Hello World")
-puts enigma.rotation(41521)
-puts enigma.get_offset
-p enigma.total_rotation
-p enigma.gets_indexes_of_message
-p enigma.adds_rotation_to_index
-p enigma.encrypt("hello world")
+# enigma = Enigma.new
+# p enigma.subtract_total_rotation_from_index("su0 zn.a21s")
