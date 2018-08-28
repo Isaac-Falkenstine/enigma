@@ -1,6 +1,7 @@
 require 'date'
 require 'pry'
 require './lib/rotation'
+require './lib/offset'
 
 class Enigma
   def initialize
@@ -13,7 +14,8 @@ class Enigma
   def encrypt(message, key = rand(10000..99999),date = Date.today)
     rotor = Rotation.new(key)
     @rotation_array = rotor.rotation
-    get_offset
+    offset = Offset.new
+    @offset_array = offset.get_offset
     encryped_message = []
     adds_rotation_to_index(message).each do |rotation|
       new_index = @character_map.rotate(rotation)
@@ -25,7 +27,8 @@ class Enigma
   def decrypt(message, key, date = Date.today)
     rotor = Rotation.new(key)
     @rotation_array = rotor.rotation
-    get_offset
+    offset = Offset.new
+    @offset_array = offset.get_offset
     decrypted_message = []
     subtract_total_rotation_from_index(message).each do |rotation|
       new_index = @character_map.rotate(rotation)
@@ -41,20 +44,20 @@ class Enigma
     rotated_indexes_array
   end
 
-  def formatted_date
-    date = Time.now.strftime("%d%m%y").to_i
-  end
-
-  def get_offset
-    date = Time.now.strftime("%d%m%y").to_i ** 2
-    date_string = date.to_s
-    date_last_4 = date_string.slice(-4,date_string.length)
-    offset_1 = date_last_4.chars[0].to_i
-    offset_2 = date_last_4.chars[1].to_i
-    offset_3 = date_last_4.chars[2].to_i
-    offset_4 = date_last_4.chars[3].to_i
-    @offset_array = [offset_1,offset_2,offset_3,offset_4]
-  end
+  # def formatted_date
+  #   date = Time.now.strftime("%d%m%y").to_i
+  # end
+  #
+  # def get_offset
+  #   date = Time.now.strftime("%d%m%y").to_i ** 2
+  #   date_string = date.to_s
+  #   date_last_4 = date_string.slice(-4,date_string.length)
+  #   offset_1 = date_last_4.chars[0].to_i
+  #   offset_2 = date_last_4.chars[1].to_i
+  #   offset_3 = date_last_4.chars[2].to_i
+  #   offset_4 = date_last_4.chars[3].to_i
+  #   @offset_array = [offset_1,offset_2,offset_3,offset_4]
+  # end
 
   def total_rotation
     total_change_1 = @rotation_array[0] + @offset_array[0]
