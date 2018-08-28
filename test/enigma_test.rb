@@ -11,7 +11,7 @@ class EnigmaTest < MiniTest::Test
 
   def test_date_is_in_correct_format
     enigma = Enigma.new
-    assert_equal 270818, enigma.formatted_date
+    assert_equal 280818, enigma.formatted_date
   end
 
   def test_get_individual_offset_numbers
@@ -62,5 +62,12 @@ class EnigmaTest < MiniTest::Test
     assert_equal 11, actual.length
   end
 
+  def test_can_decrypt_encrypted_messages
+    enigma = Enigma.new
 
+    expected = "hello world"
+    actual = enigma.decrypt("su0 zn.a21s", 41521, 270818)
+
+    assert_equal expected, actual
+  end
 end

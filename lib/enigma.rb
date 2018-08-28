@@ -20,6 +20,24 @@ class Enigma
     encryped_message.join
   end
 
+  def decrypt(message, key, date = Date.today)
+    rotation(key)
+    get_offset
+    decrypted_message = []
+    subtract_total_rotation_from_index(message).each do |rotation|
+      new_index = @character_map.rotate(rotation)
+      decrypted_message << new_index.first
+    end
+    decrypted_message.join
+  end
+
+  def subtract_total_rotation_from_index(message)
+    rotated_indexes_array = gets_indexes_of_message(message).map.with_index do |n, i|
+      n - total_rotation[i % total_rotation.length]
+    end
+    rotated_indexes_array
+  end
+
   def rotation(key)
     rotation_1 = key.to_s.slice(0,2).to_i
     rotation_2 = key.to_s.slice(1,2).to_i
@@ -71,3 +89,5 @@ class Enigma
     rotated_indexes_array
   end
 end
+# enigma = Enigma.new
+# p enigma.subtract_total_rotation_from_index("su0 zn.a21s")
