@@ -2,11 +2,6 @@ require 'date'
 require 'pry'
 
 class Enigma
-  # attr_reader :message,
-  #             :key,
-  #             :date,
-  #             :rotation_array,
-  #             :offset_array
   def initialize
     @character_map = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9',' ','.',',']
     @rotation_array = nil
@@ -15,7 +10,6 @@ class Enigma
 
 
   def encrypt(message, key = rand(10000..99999),date = Date.today)
-  # def encrypt(message, key, date)
     rotation(key)
     get_offset
     encryped_message = []
@@ -77,12 +71,3 @@ class Enigma
     rotated_indexes_array
   end
 end
-
-
-# enigma = Enigma.new
-# puts enigma.rotation(41521)
-# puts enigma.get_offset
-# p enigma.total_rotation
-# p enigma.gets_indexes_of_message
-# p enigma.adds_rotation_to_index
-# p enigma.encrypt("hello world")
