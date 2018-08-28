@@ -1,5 +1,6 @@
 require 'date'
 require 'pry'
+require './lib/rotation'
 
 class Enigma
   def initialize
@@ -10,7 +11,8 @@ class Enigma
 
 
   def encrypt(message, key = rand(10000..99999),date = Date.today)
-    rotation(key)
+    rotor = Rotation.new(key)
+    @rotation_array = rotor.rotation
     get_offset
     encryped_message = []
     adds_rotation_to_index(message).each do |rotation|
@@ -21,7 +23,8 @@ class Enigma
   end
 
   def decrypt(message, key, date = Date.today)
-    rotation(key)
+    rotor = Rotation.new(key)
+    @rotation_array = rotor.rotation
     get_offset
     decrypted_message = []
     subtract_total_rotation_from_index(message).each do |rotation|
@@ -36,14 +39,6 @@ class Enigma
       n - total_rotation[i % total_rotation.length]
     end
     rotated_indexes_array
-  end
-
-  def rotation(key)
-    rotation_1 = key.to_s.slice(0,2).to_i
-    rotation_2 = key.to_s.slice(1,2).to_i
-    rotation_3 = key.to_s.slice(2,2).to_i
-    rotation_4 = key.to_s.slice(3,2).to_i
-    @rotation_array = [rotation_1,rotation_2,rotation_3,rotation_4]
   end
 
   def formatted_date
@@ -89,5 +84,3 @@ class Enigma
     rotated_indexes_array
   end
 end
-# enigma = Enigma.new
-# p enigma.subtract_total_rotation_from_index("su0 zn.a21s")
