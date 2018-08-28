@@ -19,15 +19,10 @@ class EnigmaTest < MiniTest::Test
     assert_equal [9,1,2,4], enigma.get_offset
   end
 
-  def test_rotation_if_given_key_value
-    enigma = Enigma.new
-    assert_equal [41,15,52,21], enigma.rotation(41521)
-  end
 
-  def test_total_ration
+  def test_total_rotation
     enigma = Enigma.new
-    enigma.rotation(41521)
-    enigma.get_offset
+    enigma.encrypt("hello world", 41521, 270818)
     assert_equal [50,16,54,25], enigma.total_rotation
   end
 
@@ -39,10 +34,7 @@ class EnigmaTest < MiniTest::Test
 
   def test_adds_index_to_rotation
     enigma = Enigma.new
-    enigma.rotation(41521)
-    enigma.get_offset
-    enigma.total_rotation
-    enigma.gets_indexes_of_message("Hello world")
+    enigma.encrypt("Hello world", 41521, 270818)
     assert_equal [57, 20, 65, 36, 64, 52, 76, 39, 67, 27, 57], enigma.adds_rotation_to_index("Hello world")
   end
 
