@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-08-28T15:33:52-06:00">2018-08-28T15:33:52-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-08-28T20:41:30-06:00">2018-08-28T20:41:30-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -63,7 +63,7 @@
       <tr>
         <td class="strong"><a href="#f77f4491ed8b169e6b85a812ce5b88a8de3aa82c" class="src_link" title="lib/offset.rb">lib/offset.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>19</td>
+        <td>15</td>
         <td>12</td>
         <td>12</td>
         <td>0</td>
@@ -687,91 +687,67 @@
           <code class="ruby">class Offset</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="5">
-          
-          
-          <code class="ruby">  # def formatted_date</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="6">
-          
-          
-          <code class="ruby">  #   date = Time.now.strftime(&quot;%d%m%y&quot;).to_i</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="7">
-          
-          
-          <code class="ruby">  # end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="8">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="9">
+        <li class="covered" data-hits="1" data-linenumber="5">
           <span class="hits">1</span>
           
           <code class="ruby">  def get_offset</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="10">
+        <li class="covered" data-hits="5" data-linenumber="6">
           <span class="hits">5</span>
           
           <code class="ruby">    date = Time.now.strftime(&quot;%d%m%y&quot;).to_i ** 2</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="11">
+        <li class="covered" data-hits="5" data-linenumber="7">
           <span class="hits">5</span>
           
           <code class="ruby">    date_string = date.to_s</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="12">
+        <li class="covered" data-hits="5" data-linenumber="8">
           <span class="hits">5</span>
           
           <code class="ruby">    date_last_4 = date_string.slice(-4,date_string.length)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="13">
+        <li class="covered" data-hits="5" data-linenumber="9">
           <span class="hits">5</span>
           
           <code class="ruby">    offset_1 = date_last_4.chars[0].to_i</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="14">
+        <li class="covered" data-hits="5" data-linenumber="10">
           <span class="hits">5</span>
           
           <code class="ruby">    offset_2 = date_last_4.chars[1].to_i</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="15">
+        <li class="covered" data-hits="5" data-linenumber="11">
           <span class="hits">5</span>
           
           <code class="ruby">    offset_3 = date_last_4.chars[2].to_i</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="16">
+        <li class="covered" data-hits="5" data-linenumber="12">
           <span class="hits">5</span>
           
           <code class="ruby">    offset_4 = date_last_4.chars[3].to_i</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="17">
+        <li class="covered" data-hits="5" data-linenumber="13">
           <span class="hits">5</span>
           
           <code class="ruby">    [offset_1,offset_2,offset_3,offset_4]</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="18">
+        <li class="never" data-hits="" data-linenumber="14">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="19">
+        <li class="never" data-hits="" data-linenumber="15">
           
           
           <code class="ruby">end</code>

@@ -1,6 +1,8 @@
 require './lib/enigma'
 
 class Rotation
+  attr_reader :key
+
   def initialize(key)
     @key = key
   end
