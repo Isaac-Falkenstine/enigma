@@ -15,4 +15,3 @@ decrypted_file.write(decrypted_text)
 decrypted_file.close
 
 puts "Created 'decrypted.txt' with the key #{key} and date #{date}"
-# ruby ./lib/decrypt.rb encrypted.txt decrypted.txt 82648 240818
