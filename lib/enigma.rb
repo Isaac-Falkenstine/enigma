@@ -45,12 +45,15 @@ class Enigma
 
 
   def total_rotation
-    total_change_1 = @rotation_array[0] + @offset_array[0]
-    total_change_2 = @rotation_array[1] + @offset_array[1]
-    total_change_3 = @rotation_array[2] + @offset_array[2]
-    total_change_4 = @rotation_array[3] + @offset_array[3]
-    total_change_array = [total_change_1, total_change_2, total_change_3, total_change_4]
+    x = 0
+    total_change_array = []
+    4.times do
+      total_change_array << @rotation_array[x] + @offset_array[x]
+      x += 1
+    end
+    total_change_array
   end
+
 
   def gets_indexes_of_message(message)
     indexed_message = []
